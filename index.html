@@ -1,369 +1,450 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Confetis y fresitas 🍓✨</title>
-    
-    <!-- Tailwind CSS para diseño responsivo y utilidades -->
-    <script src="https://cdn.tailwindcss.com"></script>
-    
-    <!-- Google Fonts: Playfair Display (cursiva sutil) + Poppins (lectura cómoda) -->
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,500;0,700;1,400;1,600;1,700&family=Poppins:ital,wght@0,300;0,400;0,500;0,600;1,400&display=swap" rel="stylesheet">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+  <title>Feliz Cumpleaños Maris 🍓</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@600;700&family=Playfair+Display:ital,wght@0,500;0,700;1,500&family=Quicksand:wght@400;500;600&display=swap" rel="stylesheet">
+  <style>
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+      -webkit-tap-highlight-color: transparent;
+    }
 
-    <style>
-        /* Configuración estética oscura con acentos rositas */
-        body {
-            background: radial-gradient(circle at top right, #261224 0%, #0d090f 55%, #070509 100%);
-            color: #fce7f3;
-            font-family: 'Poppins', sans-serif;
-            overflow-x: hidden;
-            min-height: 100vh;
-            margin: 0;
-            -webkit-tap-highlight-color: transparent;
-        }
+    body {
+      background-color: #0e090c;
+      background-image:
+        radial-gradient(circle at 20% 15%, rgba(255, 117, 160, 0.14) 0%, transparent 45%),
+        radial-gradient(circle at 85% 80%, rgba(217, 70, 122, 0.12) 0%, transparent 50%);
+      color: #fce7f3;
+      font-family: 'Quicksand', sans-serif;
+      min-height: 100vh;
+      overflow-x: hidden;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      padding: 20px 14px;
+    }
 
-        /* Tipografía cursiva sutil y legible */
-        .font-cursive-subtle {
-            font-family: 'Playfair Display', serif;
-            font-style: italic;
-        }
+    /* PANTALLA DE BLOQUEO */
+    #lock-screen {
+      width: 100%;
+      max-width: 390px;
+      background: rgba(26, 15, 22, 0.92);
+      border: 1px solid rgba(244, 114, 182, 0.3);
+      border-radius: 26px;
+      padding: 30px 22px;
+      text-align: center;
+      box-shadow: 0 20px 50px rgba(0, 0, 0, 0.75), 0 0 25px rgba(244, 114, 182, 0.1);
+      transition: opacity 0.5s ease, transform 0.5s ease;
+    }
 
-        /* Contenedor estilo cristal oscuro con brillo rosita */
-        .glass-card {
-            background: rgba(24, 15, 25, 0.82);
-            backdrop-filter: blur(18px);
-            -webkit-backdrop-filter: blur(18px);
-            border: 1px solid rgba(255, 179, 209, 0.25);
-            box-shadow: 0 25px 60px rgba(0, 0, 0, 0.85), 0 0 35px rgba(255, 126, 179, 0.14);
-        }
+    #lock-screen.hidden {
+      display: none;
+    }
 
-        /* Brillo suave rosita en títulos */
-        .pink-text-glow {
-            color: #ffb3d1;
-            text-shadow: 0 0 20px rgba(255, 126, 179, 0.55);
-        }
+    .badge {
+      display: inline-block;
+      background: rgba(244, 114, 182, 0.15);
+      border: 1px solid rgba(244, 114, 182, 0.35);
+      color: #f9a8d4;
+      font-size: 0.75rem;
+      letter-spacing: 1.5px;
+      padding: 6px 16px;
+      border-radius: 999px;
+      margin-bottom: 16px;
+      font-weight: 600;
+    }
 
-        /* Animación pop al aparecer cada fresita de la contraseña */
-        @keyframes strawberryPop {
-            0% { transform: scale(0.3) rotate(-15deg); opacity: 0; }
-            70% { transform: scale(1.25) rotate(8deg); opacity: 1; }
-            100% { transform: scale(1) rotate(0deg); opacity: 1; }
-        }
+    .lock-title {
+      font-family: 'Playfair Display', serif;
+      font-style: italic;
+      font-size: 2.1rem;
+      color: #f472b6;
+      margin-bottom: 6px;
+    }
 
-        .strawberry-digit {
-            display: inline-block;
-            animation: strawberryPop 0.28s cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards;
-            filter: drop-shadow(0 0 8px rgba(255, 110, 165, 0.6));
-        }
+    .lock-sub {
+      font-style: italic;
+      color: #d8b4c8;
+      font-size: 0.92rem;
+      margin-bottom: 20px;
+    }
 
-        /* Sacudida suave si la clave no coincide */
-        @keyframes shakeError {
-            0%, 100% { transform: translateX(0); }
-            20%, 60% { transform: translateX(-8px); }
-            40%, 80% { transform: translateX(8px); }
-        }
+    .pin-display {
+      width: 100%;
+      min-height: 58px;
+      background: #12090e;
+      border: 1.5px solid rgba(244, 114, 182, 0.35);
+      border-radius: 16px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      font-size: 1.6rem;
+      letter-spacing: 6px;
+      color: #f9a8d4;
+      margin-bottom: 10px;
+      padding: 10px;
+      user-select: none;
+      transition: border-color 0.2s, transform 0.2s;
+    }
 
-        .shake-box {
-            animation: shakeError 0.38s ease-in-out;
-            border-color: rgba(244, 63, 94, 0.7) !important;
-        }
+    .pin-display.placeholder {
+      font-size: 0.95rem;
+      letter-spacing: 0.5px;
+      font-style: italic;
+      color: rgba(249, 168, 212, 0.45);
+    }
 
-        /* Botones del teclado numérico */
-        .keypad-btn {
-            background: rgba(255, 179, 209, 0.08);
-            border: 1px solid rgba(255, 179, 209, 0.22);
-            transition: all 0.15s ease;
-            user-select: none;
-        }
+    .pin-display.error {
+      border-color: #fb7185;
+      animation: shake 0.35s ease;
+    }
 
-        .keypad-btn:hover {
-            background: rgba(255, 179, 209, 0.18);
-            border-color: rgba(255, 179, 209, 0.45);
-        }
+    @keyframes shake {
+      0%, 100% { transform: translateX(0); }
+      25% { transform: translateX(-8px); }
+      50% { transform: translateX(8px); }
+      75% { transform: translateX(-5px); }
+    }
 
-        .keypad-btn:active {
-            transform: scale(0.92);
-            background: rgba(255, 126, 179, 0.3);
-        }
+    .error-msg {
+      height: 20px;
+      font-size: 0.82rem;
+      color: #fb7185;
+      margin-bottom: 12px;
+      font-style: italic;
+    }
 
-        /* Marco estilo Polaroid oscuro para las fotos */
-        .photo-frame {
-            background: linear-gradient(145deg, #211420, #110b11);
-            border: 1px solid rgba(255, 179, 209, 0.35);
-            box-shadow: 0 18px 40px rgba(0, 0, 0, 0.85), 0 0 25px rgba(255, 133, 179, 0.18);
-            transition: transform 0.35s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-        }
+    .keypad {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 12px;
+      margin-bottom: 16px;
+    }
 
-        .photo-frame:hover {
-            transform: rotate(0deg) scale(1.03);
-        }
-    </style>
+    .key-btn {
+      background: #23131c;
+      border: 1px solid rgba(244, 114, 182, 0.22);
+      color: #fce7f3;
+      font-size: 1.35rem;
+      font-weight: 600;
+      height: 56px;
+      border-radius: 16px;
+      cursor: pointer;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      transition: background 0.15s, transform 0.1s;
+      touch-action: manipulation;
+    }
+
+    .key-btn:active {
+      background: #4a2338;
+      transform: scale(0.95);
+    }
+
+    .key-btn.slash {
+      color: #f472b6;
+    }
+
+    .clear-link {
+      background: none;
+      border: none;
+      color: #d8b4c8;
+      font-size: 0.9rem;
+      cursor: pointer;
+      text-decoration: underline;
+      padding: 6px 12px;
+      touch-action: manipulation;
+    }
+
+    /* CONTENIDO PRINCIPAL */
+    #main-content {
+      display: none;
+      width: 100%;
+      max-width: 560px;
+      animation: fadeIn 0.8s ease forwards;
+      padding-bottom: 40px;
+    }
+
+    #main-content.visible {
+      display: block;
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(18px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    .card {
+      background: rgba(24, 13, 20, 0.92);
+      border: 1px solid rgba(244, 114, 182, 0.28);
+      border-radius: 26px;
+      padding: 26px 20px;
+      box-shadow: 0 20px 55px rgba(0, 0, 0, 0.8);
+    }
+
+    .header-tag {
+      text-align: center;
+      margin-bottom: 18px;
+    }
+
+    .header-tag h1 {
+      font-family: 'Dancing Script', cursive;
+      font-size: 2.6rem;
+      color: #f472b6;
+      text-shadow: 0 0 18px rgba(244, 114, 182, 0.35);
+      margin-bottom: 4px;
+    }
+
+    .header-tag p {
+      font-style: italic;
+      color: #f9a8d4;
+      font-size: 0.95rem;
+    }
+
+    .spotify-box {
+      margin: 18px 0 24px;
+      border-radius: 16px;
+      overflow: hidden;
+      border: 1px solid rgba(244, 114, 182, 0.25);
+    }
+
+    .photo-frame {
+      background: #140b10;
+      border: 1px solid rgba(244, 114, 182, 0.3);
+      border-radius: 18px;
+      padding: 10px;
+      margin: 20px 0;
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.6);
+    }
+
+    .photo-frame img {
+      width: 100%;
+      height: auto;
+      display: block;
+      border-radius: 12px;
+      object-fit: cover;
+    }
+
+    .message-box {
+      background: rgba(16, 9, 13, 0.75);
+      border-left: 3px solid #f472b6;
+      border-radius: 14px;
+      padding: 20px 18px;
+      margin: 22px 0;
+      font-family: 'Playfair Display', serif;
+      font-style: italic;
+      font-size: 1.05rem;
+      line-height: 1.78;
+      color: #fce7f3;
+    }
+
+    .message-box p {
+      margin-bottom: 16px;
+    }
+
+    .message-box p:last-child {
+      margin-bottom: 0;
+    }
+
+    .celebrate-btn {
+      display: block;
+      width: 100%;
+      margin-top: 20px;
+      padding: 14px;
+      border-radius: 16px;
+      border: 1px solid rgba(244, 114, 182, 0.45);
+      background: linear-gradient(135deg, #be185d, #ec4899);
+      color: #fff;
+      font-family: 'Quicksand', sans-serif;
+      font-size: 1rem;
+      font-weight: 600;
+      cursor: pointer;
+      box-shadow: 0 8px 25px rgba(236, 72, 153, 0.35);
+      touch-action: manipulation;
+    }
+
+    .celebrate-btn:active {
+      transform: scale(0.98);
+    }
+
+    /* CONFETI Y FRESITAS FLOTANTES */
+    #confetti-layer {
+      position: fixed;
+      inset: 0;
+      pointer-events: none;
+      z-index: 9999;
+      overflow: hidden;
+    }
+
+    .particle {
+      position: absolute;
+      top: -30px;
+      user-select: none;
+      animation: fall linear forwards;
+    }
+
+    @keyframes fall {
+      0% {
+        transform: translateY(-20px) rotate(0deg);
+        opacity: 1;
+      }
+      100% {
+        transform: translateY(105vh) rotate(360deg);
+        opacity: 0.85;
+      }
+    }
+  </style>
 </head>
-<body class="relative flex flex-col items-center justify-center min-h-screen p-4 sm:p-6">
+<body>
 
-    <!-- Canvas global para confetis y fresitas cayendo -->
-    <canvas id="confettiCanvas" class="fixed inset-0 pointer-events-none z-50"></canvas>
+  <div id="confetti-layer"></div>
 
-    <!-- =====================================================================
-         PASO 1: PANTALLA DE CONTRASEÑA CON FRESITAS (12/11)
-    ====================================================================== -->
-    <section id="lockScreen" class="fixed inset-0 z-30 flex items-center justify-center p-4 bg-[#0a070c]/95 backdrop-blur-md transition-opacity duration-700">
-        <div class="glass-card rounded-3xl p-6 sm:p-8 w-full max-w-sm text-center relative overflow-hidden">
-            
-            <!-- Brillo decorativo -->
-            <div class="absolute -top-20 -right-20 w-40 h-40 bg-pink-500/20 rounded-full blur-3xl pointer-events-none"></div>
+  <!-- PANTALLA DE CONTRASEÑA -->
+  <div id="lock-screen">
+    <div class="badge">ACCESO PRIVADO 🍓</div>
+    <h2 class="lock-title">Ingresa la clave</h2>
+    <p class="lock-sub">Formato de fecha (ej. 00/00)</p>
 
-            <span class="inline-block px-3.5 py-1 rounded-full text-xs tracking-wider uppercase bg-pink-500/15 border border-pink-400/30 text-pink-300 mb-3">
-                Acceso Privado 🍓
-            </span>
+    <div id="pin-display" class="pin-display placeholder">Escribe la fecha...</div>
+    <div id="error-msg" class="error-msg"></div>
 
-            <h1 class="font-cursive-subtle text-3xl sm:text-4xl font-bold pink-text-glow mb-1">
-                Ingresa la clave
-            </h1>
-            <p class="text-pink-200/75 text-xs sm:text-sm mb-5">
-                Formato de fecha (ej. 00/00)
-            </p>
+    <div class="keypad">
+      <button type="button" class="key-btn" onclick="pressKey('1')">1</button>
+      <button type="button" class="key-btn" onclick="pressKey('2')">2</button>
+      <button type="button" class="key-btn" onclick="pressKey('3')">3</button>
+      <button type="button" class="key-btn" onclick="pressKey('4')">4</button>
+      <button type="button" class="key-btn" onclick="pressKey('5')">5</button>
+      <button type="button" class="key-btn" onclick="pressKey('6')">6</button>
+      <button type="button" class="key-btn" onclick="pressKey('7')">7</button>
+      <button type="button" class="key-btn" onclick="pressKey('8')">8</button>
+      <button type="button" class="key-btn" onclick="pressKey('9')">9</button>
+      <button type="button" class="key-btn slash" onclick="pressKey('/')">/</button>
+      <button type="button" class="key-btn" onclick="pressKey('0')">0</button>
+      <button type="button" class="key-btn" onclick="deleteLast()">⌫</button>
+    </div>
 
-            <!-- Visor de fresitas en lugar de números o puntitos -->
-            <div id="pinDisplayBox" onclick="focusHiddenInput()"
-                class="w-full h-16 rounded-2xl bg-black/50 border border-pink-300/35 flex items-center justify-center gap-2.5 px-4 mb-2 cursor-text transition-colors">
-                <div id="strawberrySlots" class="flex items-center justify-center gap-2 text-2xl sm:text-3xl min-h-[36px]">
-                    <span class="text-pink-300/35 text-sm font-light italic">Escribe la fecha...</span>
-                </div>
-            </div>
+    <button type="button" class="clear-link" onclick="clearPin()">Limpiar</button>
+  </div>
 
-            <!-- Input oculto para permitir también escribir desde teclado físico -->
-            <input id="hiddenPinInput" type="text" inputmode="numeric" maxlength="5" autocomplete="off"
-                class="opacity-0 absolute -z-10 pointer-events-none" aria-label="Contraseña">
+  <!-- TARJETA DESBLOQUEADA -->
+  <div id="main-content">
+    <div class="card">
+      <div class="header-tag">
+        <h1>Felices 18, Maris 🎂🍓</h1>
+        <p>Confetis y fresitas para tu día</p>
+      </div>
 
-            <!-- Mensaje de error discreto -->
-            <p id="pinErrorMsg" class="text-rose-400 text-xs h-5 mb-3 opacity-0 transition-opacity duration-200">
-                Clave incorrecta, intenta de nuevo 🍓
-            </p>
+      <!-- REPRODUCTOR SPOTIFY -->
+      <div class="spotify-box">
+        <iframe style="border-radius:12px" src="https://open.spotify.com/embed/track/3s03nrUInN3NAVjQtmnS0O?utm_source=generator&theme=0" width="100%" height="152" frameBorder="0" allowfullscreen="" allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" loading="lazy"></iframe>
+      </div>
 
-            <!-- Teclado numérico táctil en pantalla -->
-            <div class="grid grid-cols-3 gap-2.5 max-w-[270px] mx-auto">
-                <button type="button" onclick="pressKey('1')" class="keypad-btn h-13 py-3 rounded-2xl text-pink-100 font-medium text-lg cursor-pointer">1</button>
-                <button type="button" onclick="pressKey('2')" class="keypad-btn h-13 py-3 rounded-2xl text-pink-100 font-medium text-lg cursor-pointer">2</button>
-                <button type="button" onclick="pressKey('3')" class="keypad-btn h-13 py-3 rounded-2xl text-pink-100 font-medium text-lg cursor-pointer">3</button>
-                
-                <button type="button" onclick="pressKey('4')" class="keypad-btn h-13 py-3 rounded-2xl text-pink-100 font-medium text-lg cursor-pointer">4</button>
-                <button type="button" onclick="pressKey('5')" class="keypad-btn h-13 py-3 rounded-2xl text-pink-100 font-medium text-lg cursor-pointer">5</button>
-                <button type="button" onclick="pressKey('6')" class="keypad-btn h-13 py-3 rounded-2xl text-pink-100 font-medium text-lg cursor-pointer">6</button>
-                
-                <button type="button" onclick="pressKey('7')" class="keypad-btn h-13 py-3 rounded-2xl text-pink-100 font-medium text-lg cursor-pointer">7</button>
-                <button type="button" onclick="pressKey('8')" class="keypad-btn h-13 py-3 rounded-2xl text-pink-100 font-medium text-lg cursor-pointer">8</button>
-                <button type="button" onclick="pressKey('9')" class="keypad-btn h-13 py-3 rounded-2xl text-pink-100 font-medium text-lg cursor-pointer">9</button>
-                
-                <button type="button" onclick="pressKey('/')" class="keypad-btn h-13 py-3 rounded-2xl text-pink-300 font-semibold text-lg cursor-pointer">/</button>
-                <button type="button" onclick="pressKey('0')" class="keypad-btn h-13 py-3 rounded-2xl text-pink-100 font-medium text-lg cursor-pointer">0</button>
-                <button type="button" onclick="deleteKey()" aria-label="Borrar" class="keypad-btn h-13 py-3 rounded-2xl text-pink-300 font-medium text-base cursor-pointer">⌫</button>
-            </div>
+      <!-- PRIMERA FOTO (JUNTOS) -->
+      <div class="photo-frame">
+        <img src="https://i.postimg.cc/3RX62mZZ/IMG-20260712-WA0000.jpg" alt="Foto juntos">
+      </div>
 
-            <button type="button" onclick="clearPin()" class="mt-4 text-xs text-pink-300/60 hover:text-pink-200 transition cursor-pointer">
-                Limpiar
-            </button>
-        </div>
-    </section>
+      <!-- MENSAJE EXACTO -->
+      <div class="message-box">
+        <p>TARANN!!, bueno exactamente me costó hacer este jueguito, se me trabó el programa, al inicio no habría y tuve que hacerlo desde cero con ayuda, pero lo importante es que ya funciona, creo si es que no se queda bug, pero bueno lo importante es que muchas felicidades mari , felicidades por tus 18 añotes que te diste , me ganaste ya , todavía me faltan unos 18 días, pero creo que serás mi testigo para mí credencial JAJAJA.</p>
+        <p>volviendo al tema, se que no hablamos mucho, pero nos conocemos un poco, así que solo vengo a felicitarte, espero que sigas adelante con tu carrera y también tus otras secciones que te das de estudio , si en algún momento necesitas ayuda, sea digital o presencial cuenta conmigo, aunque no soy tan inteligente, pero en lo digital puedo ayudarte si surge un problema, e igual disfruta tu menudencias que no te mandé JAJAJA, pero si un pollo que tu mamá compró, aún así bueno solo espero que te vaya más bien a comparación de ahora, que no se te metan las ganas de salirte porque si no entonces ni habrá valido la pena, pero bueno no es lo que yo piense , si no lo que sentirás en algún momento, y bueno eso es todo , pero déjame decirte que espero que te haya gustado este detalle, no fue mucho pero si algo que pudieras interactuar y que se sienta muy diferente a lo habitual, hay unas imágenes, una fue la que nos tomamos y otra que tomé de tu Instagram, y perdón JAJAJA , solo fue para eso realmente, y no hay nada de que preocuparse, espero confíes en mí, a veces sueles ser muy paranoica con lo de los links , pero realmente no haría nada malo , no soy esa clase de persona, suelo ser medio atontado pero eso es parte de mí personalidad, así que disfrute mucho de su vida y de hoy aunque realmente no creo que lo hagas porque eso creo yo JAJAJA, en fin , felicidades maris 🎂🍓</p>
+      </div>
 
-    <!-- =====================================================================
-         PASO 2: CONTENIDO PRINCIPAL DE LA TARJETA DESBLOQUEADA
-    ====================================================================== -->
-    <main id="mainCard" class="hidden opacity-0 transition-all duration-1000 transform translate-y-6 w-full max-w-2xl mx-auto my-6 sm:my-10 z-20">
-        
-        <article class="glass-card rounded-3xl p-5 sm:p-9 relative overflow-hidden">
-            
-            <!-- Destellos ambientales de fondo -->
-            <div class="absolute -top-24 -right-24 w-56 h-56 bg-pink-500/20 rounded-full blur-3xl pointer-events-none"></div>
-            <div class="absolute -bottom-24 -left-24 w-56 h-56 bg-rose-500/15 rounded-full blur-3xl pointer-events-none"></div>
+      <!-- SEGUNDA FOTO AL FINAL (INSTAGRAM) -->
+      <div class="photo-frame">
+        <img src="https://i.postimg.cc/2S0JCnkV/Screenshot-20261112-132149-Instagram.jpg" alt="Foto Maris">
+      </div>
 
-            <!-- Encabezado discreto: Confetis y fresitas -->
-            <header class="text-center mb-6">
-                <div class="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-pink-500/15 border border-pink-300/30 text-pink-200 text-xs sm:text-sm mb-3">
-                    <span>🎉</span>
-                    <span class="font-cursive-subtle tracking-wide text-sm sm:text-base">Confetis y fresitas</span>
-                    <span>🍓✨</span>
-                </div>
-                
-                <h1 class="font-cursive-subtle text-4xl sm:text-5xl font-bold pink-text-glow leading-tight">
-                    ¡Feliz Cumpleaños, Mari!
-                </h1>
-            </header>
+      <button type="button" class="celebrate-btn" onclick="launchConfetti()">Más confetis y fresitas 🍓✨</button>
+    </div>
+  </div>
 
-            <!-- Reproductor embebido de Spotify (Estranged - Guns N' Roses) -->
-            <div class="mb-7 rounded-2xl overflow-hidden border border-pink-300/25 shadow-[0_10px_30px_rgba(0,0,0,0.6)] bg-[#121212]">
-                <iframe 
-                    style="border-radius:12px" 
-                    src="https://open.spotify.com/embed/track/3s03nrUInN3NAVjQtmnS0O?utm_source=generator&theme=0" 
-                    width="100%" 
-                    height="152" 
-                    frameBorder="0" 
-                    allowfullscreen="" 
-                    allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" 
-                    loading="lazy"
-                    title="Estranged - Guns N' Roses">
-                </iframe>
-            </div>
+  <script>
+    var currentInput = "";
 
-            <!-- Primera foto (juntos) en marco estilo Polaroid oscuro -->
-            <div class="flex justify-center my-7">
-                <div class="photo-frame p-3 pb-4 rounded-2xl -rotate-2 w-full max-w-[280px]">
-                    <div class="relative overflow-hidden rounded-xl aspect-[4/5] bg-[#160f16]">
-                        <img 
-                            src="https://i.postimg.cc/3RX62mZZ/IMG-20260712-WA0000.jpg" 
-                            alt="Foto juntos" 
-                            onerror="this.onerror=null; this.src='https://placehold.co/400x500/1a1019/ffb3d1?text=Foto+1+%F0%9F%8D%93';"
-                            class="w-full h-full object-cover object-center"
-                        >
-                        <div class="absolute inset-0 bg-gradient-to-t from-[#0b090d]/45 via-transparent to-transparent"></div>
-                    </div>
-                </div>
-            </div>
+    function updateDisplay() {
+      var display = document.getElementById("pin-display");
+      var errorMsg = document.getElementById("error-msg");
+      errorMsg.textContent = "";
+      display.classList.remove("error");
 
-            <!-- Mensaje exacto palabra por palabra -->
-            <div class="space-y-4 text-pink-100/95 text-sm sm:text-base leading-relaxed bg-black/40 rounded-2xl p-5 sm:p-7 border border-pink-300/20">
-                <p class="font-cursive-subtle text-pink-100 text-base sm:text-lg leading-relaxed">
-                    TARANN!!, bueno exactamente me costó hacer este jueguito, se me trabó el programa, al inicio no habría y tuve que hacerlo desde cero con ayuda, pero lo importante es que ya funciona, creo si es que no se queda bug, pero bueno lo importante es que muchas felicidades mari , felicidades por tus 18 añotes que te diste , me ganaste ya , todavía me faltan unos 18 días, pero creo que serás mi testigo para mí credencial JAJAJA.
-                </p>
-                <p class="font-cursive-subtle text-pink-100 text-base sm:text-lg leading-relaxed">
-                    volviendo al tema, se que no hablamos mucho, pero nos conocemos un poco, así que solo vengo a felicitarte, espero que sigas adelante con tu carrera y también tus otras secciones que te das de estudio , si en algún momento necesitas ayuda, sea digital o presencial cuenta conmigo, aunque no soy tan inteligente, pero en lo digital puedo ayudarte si surge un problema, e igual disfruta tu menudencias que no te mandé JAJAJA, pero si un pollo que tu mamá compró, aún así bueno solo espero que te vaya más bien a comparación de ahora, que no se te metan las ganas de salirte porque si no entonces ni habrá valido la pena, pero bueno no es lo que yo piense , si no lo que sentirás en algún momento, y bueno eso es todo , pero déjame decirte que espero que te haya gustado este detalle, no fue mucho pero si algo que pudieras interactuar y que se sienta muy diferente a lo habitual, hay unas imágenes, una fue la que nos tomamos y otra que tomé de tu Instagram, y perdón JAJAJA , solo fue para eso realmente, y no hay nada de que preocuparse, espero confíes en mí, a veces sueles ser muy paranoica con lo de los links , pero realmente no haría nada malo , no soy esa clase de persona, suelo ser medio atontado pero eso es parte de mí personalidad, así que disfrute mucho de su vida y de hoy aunque realmente no creo que lo hagas porque eso creo yo JAJAJA, en fin , felicidades maris 🎂🍓
-                </p>
-            </div>
-
-            <!-- Segunda foto (Instagram) al final como cierre visual -->
-            <div class="flex justify-center mt-8">
-                <div class="photo-frame p-3 pb-4 rounded-2xl rotate-2 w-full max-w-[280px]">
-                    <div class="relative overflow-hidden rounded-xl aspect-[4/5] bg-[#160f16]">
-                        <img 
-                            src="https://i.postimg.cc/2S0JCnkV/Screenshot-20261112-132149-Instagram.jpg" 
-                            alt="Foto de Mari" 
-                            onerror="this.onerror=null; this.src='https://placehold.co/400x500/1a1019/ffb3d1?text=Foto+2+%F0%9F%8D%93';"
-                            class="w-full h-full object-cover object-center"
-                        >
-                        <div class="absolute inset-0 bg-gradient-to-t from-[#0b090d]/45 via-transparent to-transparent"></div>
-                    </div>
-                </div>
-            </div>
-
-            <!-- Botón opcional para volver a lanzar lluvia de confetis y fresitas -->
-            <div class="mt-7 flex justify-center">
-                <button type="button" onclick="launchConfettiAndStrawberries(75)" 
-                    class="inline-flex items-center justify-center gap-2 px-6 py-3 rounded-full bg-gradient-to-r from-pink-500/85 to-rose-400/85 hover:from-pink-500 hover:to-rose-400 text-white font-medium text-sm shadow-[0_0_25px_rgba(255,126,179,0.45)] border border-pink-200/40 transition-all duration-300 active:scale-95 cursor-pointer">
-                    <span>Más confetis y fresitas</span>
-                    <span>🍓🎊</span>
-                </button>
-            </div>
-
-        </article>
-    </main>
-
-    <!-- =====================================================================
-         LÓGICA DE CONTRASEÑA CON FRESITAS Y LLUVIA DE CONFETIS/FRESITAS
-    ====================================================================== -->
-    <script>
-        // --- ESTADO DE LA CONTRASEÑA ---
-        let currentPin = "";
-        let isUnlocked = false;
-        let audioCtx = null;
-
-        const strawberrySlots = document.getElementById('strawberrySlots');
-        const pinDisplayBox = document.getElementById('pinDisplayBox');
-        const pinErrorMsg = document.getElementById('pinErrorMsg');
-        const hiddenPinInput = document.getElementById('hiddenPinInput');
-
-        // Sonido suave tipo pop al escribir cada carácter
-        function playKeyTone(index, isSuccess = false) {
-            try {
-                if (!audioCtx) {
-                    const AudioContext = window.AudioContext || window.webkitAudioContext;
-                    audioCtx = new AudioContext();
-                }
-                if (audioCtx.state === 'suspended') {
-                    audioCtx.resume();
-                }
-
-                const now = audioCtx.currentTime;
-                const osc = audioCtx.createOscillator();
-                const gain = audioCtx.createGain();
-
-                const notes = [523.25, 587.33, 659.25, 783.99, 1046.50];
-                const freq = isSuccess ? 1046.50 : notes[Math.min(index, notes.length - 1)];
-
-                osc.type = 'sine';
-                osc.frequency.setValueAtTime(freq, now);
-                if (isSuccess) {
-                    osc.frequency.exponentialRampToValueAtTime(1318.51, now + 0.18);
-                }
-
-                gain.gain.setValueAtTime(0.001, now);
-                gain.gain.linearRampToValueAtTime(0.14, now + 0.02);
-                gain.gain.exponentialRampToValueAtTime(0.0001, now + (isSuccess ? 0.35 : 0.16));
-
-                osc.connect(gain);
-                gain.connect(audioCtx.destination);
-
-                osc.start(now);
-                osc.stop(now + (isSuccess ? 0.36 : 0.17));
-            } catch (e) {}
+      if (currentInput.length === 0) {
+        display.textContent = "Escribe la fecha...";
+        display.classList.add("placeholder");
+      } else {
+        display.classList.remove("placeholder");
+        var strawberries = "";
+        for (var i = 0; i < currentInput.length; i++) {
+          strawberries += "🍓";
         }
+        display.textContent = strawberries;
+      }
+    }
 
-        function focusHiddenInput() {
-            hiddenPinInput.focus();
-        }
+    function pressKey(char) {
+      if (currentInput.length >= 5) return;
+      currentInput += char;
+      updateDisplay();
 
-        // Renderizar cada carácter ingresado como una fresita 🍓
-        function renderStrawberries() {
-            strawberrySlots.innerHTML = '';
-            if (currentPin.length === 0) {
-                strawberrySlots.innerHTML = '<span class="text-pink-300/35 text-sm font-light italic">Escribe la fecha...</span>';
-                return;
-            }
+      if (currentInput === "12/11" || currentInput === "1211") {
+        setTimeout(unlockCard, 250);
+      } else if (currentInput.length === 5 || (currentInput.length === 4 && currentInput.indexOf("/") === -1)) {
+        var display = document.getElementById("pin-display");
+        var errorMsg = document.getElementById("error-msg");
+        display.classList.add("error");
+        errorMsg.textContent = "Fecha incorrecta, intenta de nuevo 🍓";
+        setTimeout(function() {
+          currentInput = "";
+          updateDisplay();
+        }, 700);
+      }
+    }
 
-            for (let i = 0; i < currentPin.length; i++) {
-                const span = document.createElement('span');
-                span.className = 'strawberry-digit';
-                span.textContent = '🍓';
-                strawberrySlots.appendChild(span);
-            }
-        }
+    function deleteLast() {
+      if (currentInput.length > 0) {
+        currentInput = currentInput.slice(0, -1);
+        updateDisplay();
+      }
+    }
 
-        function pressKey(char) {
-            if (isUnlocked) return;
-            if (currentPin.length >= 5) return;
+    function clearPin() {
+      currentInput = "";
+      updateDisplay();
+    }
 
-            pinErrorMsg.style.opacity = '0';
-            pinDisplayBox.classList.remove('shake-box');
+    function unlockCard() {
+      document.getElementById("lock-screen").classList.add("hidden");
+      document.getElementById("main-content").classList.add("visible");
+      launchConfetti();
+    }
 
-            currentPin += char;
-            hiddenPinInput.value = currentPin;
-            playKeyTone(currentPin.length - 1);
-            renderStrawberries();
+    function launchConfetti() {
+      var layer = document.getElementById("confetti-layer");
+      var items = ["🍓", "✨", "🎉", "🩷", "🌸", "🎂"];
+      for (var i = 0; i < 45; i++) {
+        var el = document.createElement("div");
+        el.className = "particle";
+        el.textContent = items[Math.floor(Math.random() * items.length)];
+        el.style.left = Math.random() * 100 + "vw";
+        el.style.fontSize = (16 + Math.random() * 16) + "px";
+        el.style.animationDuration = (2.5 + Math.random() * 3) + "s";
+        el.style.animationDelay = (Math.random() * 0.6) + "s";
+        layer.appendChild(el);
 
-            validatePin();
-        }
-
-        function deleteKey() {
-            if (isUnlocked || currentPin.length === 0) return;
-            currentPin = currentPin.slice(0, -1);
-            hiddenPinInput.value = currentPin;
-            pinErrorMsg.style.opacity = '0';
-            renderStrawberries();
-        }
-
-        function clearPin() {
-            if (isUnlocked) return;
-            currentPin = "";
-            hiddenPinInput.value = "";
-            pinErrorMsg.style.opacity = '0';
-            pinDisplayBox.classList.remove('shake-box');
-            renderStrawberries();
-        }
-
-        // Soporte para teclado físico en computadora
-        document.addEventListener('keydown', (e) => {
-            if (isUnlocked) return;
-            if ((e.key >= '0' && e.key <= '9') || e.key === '/') {
-                e.preventDefau
+        (function(node) {
+          setTimeout(function() {
+            if (node.parentNode) node.parentNode.removeChild(node);
+          }, 6000);
+        })(el);
+      }
+    }
+  </script>
+</body>
+</html>
